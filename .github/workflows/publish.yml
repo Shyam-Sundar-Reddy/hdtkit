@@ -14,11 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust/hdtkit-core
+
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
 
-      - name: Install package with dev extras
+      - name: Install package with dev extras (builds the Rust extension via maturin)
         run: uv sync --extra dev
 
       - name: Run tests
@@ -30,10 +36,19 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust/hdtkit-core
+
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
 
+      # NOTE: this only produces a Linux (manylinux) wheel + sdist, since it
+      # builds on ubuntu-latest. Multi-platform wheels (Windows/macOS) land
+      # in Phase 6 via cibuildwheel.
       - name: Build sdist and wheel
         run: uv build
 

@@ -1,0 +1,13 @@
+[package]
+name = "hdtkit-core"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+# Module name Python imports as `hdtkit._native`.
+name = "_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["extension-module"] }

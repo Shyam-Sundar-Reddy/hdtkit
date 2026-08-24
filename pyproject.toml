@@ -1,6 +1,6 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
 
 [project]
 name = "hdtkit"
@@ -18,5 +18,7 @@ dev = ["pytest>=8"]
 Homepage = "https://github.com/Shyam-Sundar-Reddy/hdtkit"
 Repository = "https://github.com/Shyam-Sundar-Reddy/hdtkit"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/hdtkit"]
+[tool.maturin]
+manifest-path = "rust/hdtkit-core/Cargo.toml"
+python-source = "src"
+module-name = "hdtkit._native"

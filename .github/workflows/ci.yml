@@ -22,11 +22,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust/hdtkit-core
+
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
 
-      - name: Install package with dev extras
+      - name: Install package with dev extras (builds the Rust extension via maturin)
         run: uv sync --extra dev
 
       - name: Run tests
