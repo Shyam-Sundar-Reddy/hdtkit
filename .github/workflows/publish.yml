@@ -36,22 +36,24 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: dtolnay/rust-toolchain@stable
-
-      - uses: Swatinem/rust-cache@v2
+      # `uv build`/plain `maturin build` on a regular ubuntu-latest runner tags
+      # the wheel `linux_x86_64`, which PyPI rejects for binary wheels (needs a
+      # manylinux tag). maturin-action builds inside the standard manylinux
+      # docker image so the wheel comes out correctly tagged.
+      - name: Build manylinux wheel
+        uses: PyO3/maturin-action@v1
         with:
-          workspaces: rust/hdtkit-core
+          manylinux: auto
+          args: --release --out dist
 
-      - uses: astral-sh/setup-uv@v5
+      - name: Build sdist
+        uses: PyO3/maturin-action@v1
         with:
-          enable-cache: true
+          command: sdist
+          args: --out dist
 
-      # NOTE: this only produces a Linux (manylinux) wheel + sdist, since it
-      # builds on ubuntu-latest. Multi-platform wheels (Windows/macOS) land
-      # in Phase 6 via cibuildwheel.
-      - name: Build sdist and wheel
-        run: uv build
-
+      # NOTE: this only produces a Linux wheel + sdist. Windows/macOS wheels
+      # land in Phase 6 (this same maturin-action, matrixed across OS).
       - uses: actions/upload-artifact@v4
         with:
           name: dist
