@@ -22,3 +22,8 @@ Repository = "https://github.com/Shyam-Sundar-Reddy/hdtkit"
 manifest-path = "rust/hdtkit-core/Cargo.toml"
 python-source = "src"
 module-name = "hdtkit._native"
+# maturin auto-declares a `License-File: LICENSE` metadata header from this
+# root-level file, but doesn't include the file itself in the sdist unless
+# told to — PyPI then rejects the sdist for declaring a license file it
+# doesn't contain. `include` copies it in.
+include = ["LICENSE"]

@@ -79,3 +79,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+          # Lets a re-tagged retry (e.g. after fixing a packaging bug in one
+          # file) skip files a previous run already got onto PyPI instead of
+          # failing on "File already exists".
+          skip-existing: true
