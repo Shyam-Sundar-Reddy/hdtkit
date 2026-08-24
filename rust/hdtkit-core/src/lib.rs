@@ -6,6 +6,8 @@
 
 use pyo3::prelude::*;
 
+mod ttl;
+
 /// Trivial round-trip check: `hdtkit._native.ping() == "pong"`.
 #[pyfunction]
 fn ping() -> PyResult<String> {
