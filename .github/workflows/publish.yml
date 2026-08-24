@@ -86,6 +86,12 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           manylinux: musllinux_1_2
+          # `manylinux: musllinux_1_2` alone only selects the musl container
+          # image and the wheel's PyPI platform tag — it does NOT tell cargo
+          # to cross-compile for musl. Without this, the first published
+          # musllinux wheel had a *glibc*-linked `_native....so` inside a
+          # wheel *labeled* musllinux, which crashed on real musl systems.
+          target: x86_64-unknown-linux-musl
           args: --release --out dist --interpreter python3.12 python3.13
 
       - uses: actions/upload-artifact@v4

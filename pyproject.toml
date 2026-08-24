@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "hdtkit"
-version = "0.2.0"
+version = "0.2.1"
 description = "Convert between RDF Turtle (.ttl) and HDT (.hdt) — ttl2hdt, hdt2ttl, hdtcat."
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
