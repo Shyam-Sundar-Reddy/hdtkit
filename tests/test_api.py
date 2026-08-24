@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 import hdtkit
@@ -16,9 +18,13 @@ def test_ttl2hdt_not_implemented_yet() -> None:
         ttl2hdt("in.ttl", "out.hdt")
 
 
-def test_hdt2ttl_not_implemented_yet() -> None:
-    with pytest.raises(NotImplementedError):
-        hdt2ttl("in.hdt", "out.ttl")
+def test_hdt2ttl_converts_fixture(tmp_path) -> None:
+    fixture = Path(__file__).parent / "fixtures" / "snikmeta.hdt"
+    out = tmp_path / "snikmeta.ttl"
+    hdt2ttl(fixture, out)
+    ttl = out.read_text()
+    assert ttl
+    assert "@prefix" in ttl or "<http" in ttl
 
 
 def test_hdtcat_requires_at_least_two_inputs() -> None:

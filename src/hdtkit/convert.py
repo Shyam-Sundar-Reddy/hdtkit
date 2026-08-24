@@ -11,6 +11,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from hdtkit import _native
+
 
 def ttl2hdt(
     input_path: str | Path,
@@ -44,11 +46,10 @@ def hdt2ttl(
         output_path: Path to write the resulting ``.ttl`` file.
 
     Raises:
-        NotImplementedError: Native conversion is not implemented yet (Phase 3).
+        ValueError: The ``.hdt`` file could not be read or the ``.ttl`` file could
+            not be written (e.g. a malformed HDT file, or an unwritable output path).
     """
-    raise NotImplementedError(
-        "hdt2ttl is not implemented yet — see phase.md, Phase 3 (Rust HDT read path)."
-    )
+    _native.hdt2ttl(str(input_path), str(output_path))
 
 
 def hdtcat(
