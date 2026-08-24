@@ -45,6 +45,20 @@ def test_hdtcat_requires_at_least_two_inputs() -> None:
         hdtcat(["only-one.hdt"], "out.hdt")
 
 
-def test_hdtcat_not_implemented_yet() -> None:
-    with pytest.raises(NotImplementedError):
-        hdtcat(["a.hdt", "b.hdt"], "out.hdt")
+def test_hdtcat_merges_and_dedups(tmp_path) -> None:
+    a_ttl = tmp_path / "a.ttl"
+    a_ttl.write_text("@prefix ex: <http://example.org/> .\nex:a ex:knows ex:b .\nex:shared ex:p ex:o .\n")
+    b_ttl = tmp_path / "b.ttl"
+    b_ttl.write_text("@prefix ex: <http://example.org/> .\nex:c ex:knows ex:d .\nex:shared ex:p ex:o .\n")
+    a_hdt, b_hdt = tmp_path / "a.hdt", tmp_path / "b.hdt"
+    ttl2hdt(a_ttl, a_hdt)
+    ttl2hdt(b_ttl, b_hdt)
+
+    out = tmp_path / "combined.hdt"
+    hdtcat([a_hdt, b_hdt], out)
+
+    back = tmp_path / "combined.ttl"
+    hdt2ttl(out, back)
+    text = back.read_text()
+    # 3 distinct triples expected: a-knows-b, c-knows-d, shared-p-o (deduped, not 4).
+    assert text.count(" .\n") == 3

@@ -7,6 +7,7 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use std::path::PathBuf;
 
+mod hdt_merge;
 mod hdt_read;
 mod hdt_write;
 mod ttl;
@@ -31,10 +32,17 @@ fn ttl2hdt(input_path: PathBuf, output_path: PathBuf, base_uri: Option<String>) 
         .map_err(|e| PyValueError::new_err(e.to_string()))
 }
 
+/// Combine 2+ HDT (`.hdt`) files into one, de-duplicating triples. See `hdtkit.hdtcat`.
+#[pyfunction]
+fn hdtcat(input_paths: Vec<PathBuf>, output_path: PathBuf) -> PyResult<()> {
+    hdt_merge::hdtcat(&input_paths, &output_path).map_err(|e| PyValueError::new_err(e.to_string()))
+}
+
 #[pymodule]
 fn _native(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(ping, m)?)?;
     m.add_function(wrap_pyfunction!(hdt2ttl, m)?)?;
     m.add_function(wrap_pyfunction!(ttl2hdt, m)?)?;
+    m.add_function(wrap_pyfunction!(hdtcat, m)?)?;
     Ok(())
 }

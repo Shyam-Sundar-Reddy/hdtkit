@@ -62,11 +62,9 @@ def hdtcat(
         output_path: Path to write the merged ``.hdt`` file.
 
     Raises:
-        ValueError: Fewer than 2 input paths were given.
-        NotImplementedError: Native conversion is not implemented yet (Phase 5).
+        ValueError: Fewer than 2 input paths were given, or an input ``.hdt`` could
+            not be read, or the ``.hdt`` file could not be written.
     """
     if len(input_paths) < 2:
         raise ValueError("hdtcat requires at least 2 input .hdt files")
-    raise NotImplementedError(
-        "hdtcat is not implemented yet — see phase.md, Phase 5 (built on read + write paths)."
-    )
+    _native.hdtcat([str(p) for p in input_paths], str(output_path))
