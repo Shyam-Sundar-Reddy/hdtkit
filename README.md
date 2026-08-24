@@ -17,11 +17,11 @@ pip install -e ".[dev]"
 ## Usage
 
 ```python
-from hdtkit import ttl_to_hdt, hdt_to_ttl, merge_hdt
+from hdtkit import ttl2hdt, hdt2ttl, hdtcat
 
-ttl_to_hdt("graph.ttl", "graph.hdt")
-hdt_to_ttl("graph.hdt", "graph.ttl")
-merge_hdt(["a.hdt", "b.hdt"], "combined.hdt")
+ttl2hdt("graph.ttl", "graph.hdt")
+hdt2ttl("graph.hdt", "graph.ttl")
+hdtcat(["a.hdt", "b.hdt"], "combined.hdt")
 ```
 
 ## Status

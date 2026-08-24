@@ -1,5 +1,5 @@
-from hdtkit.convert import hdt_to_ttl, merge_hdt, ttl_to_hdt
+from hdtkit.convert import hdt2ttl, hdtcat, ttl2hdt
 
 __version__ = "0.1.0"
 
-__all__ = ["__version__", "ttl_to_hdt", "hdt_to_ttl", "merge_hdt"]
+__all__ = ["__version__", "ttl2hdt", "hdt2ttl", "hdtcat"]

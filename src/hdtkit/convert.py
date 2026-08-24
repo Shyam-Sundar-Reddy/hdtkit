@@ -12,7 +12,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-def ttl_to_hdt(
+def ttl2hdt(
     input_path: str | Path,
     output_path: str | Path,
     *,
@@ -29,11 +29,11 @@ def ttl_to_hdt(
         NotImplementedError: Native conversion is not implemented yet (Phase 4).
     """
     raise NotImplementedError(
-        "ttl_to_hdt is not implemented yet — see phase.md, Phase 4 (Rust HDT write path)."
+        "ttl2hdt is not implemented yet — see phase.md, Phase 4 (Rust HDT write path)."
     )
 
 
-def hdt_to_ttl(
+def hdt2ttl(
     input_path: str | Path,
     output_path: str | Path,
 ) -> None:
@@ -47,11 +47,11 @@ def hdt_to_ttl(
         NotImplementedError: Native conversion is not implemented yet (Phase 3).
     """
     raise NotImplementedError(
-        "hdt_to_ttl is not implemented yet — see phase.md, Phase 3 (Rust HDT read path)."
+        "hdt2ttl is not implemented yet — see phase.md, Phase 3 (Rust HDT read path)."
     )
 
 
-def merge_hdt(
+def hdtcat(
     input_paths: list[str | Path],
     output_path: str | Path,
 ) -> None:
@@ -66,7 +66,7 @@ def merge_hdt(
         NotImplementedError: Native conversion is not implemented yet (Phase 5).
     """
     if len(input_paths) < 2:
-        raise ValueError("merge_hdt requires at least 2 input .hdt files")
+        raise ValueError("hdtcat requires at least 2 input .hdt files")
     raise NotImplementedError(
-        "merge_hdt is not implemented yet — see phase.md, Phase 5 (built on read + write paths)."
+        "hdtcat is not implemented yet — see phase.md, Phase 5 (built on read + write paths)."
     )
