@@ -10,7 +10,7 @@ name = "_native"
 crate-type = ["cdylib"]
 
 [dependencies]
-hdt = "0.7.3"
+hdt = { version = "0.7.3", features = ["nt"] }
 oxrdf = "0.3.3"
 oxttl = "0.2.3"
 pyo3 = { version = "0.23", features = ["extension-module"] }

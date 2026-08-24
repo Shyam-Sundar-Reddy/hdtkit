@@ -28,11 +28,10 @@ def ttl2hdt(
         base_uri: Optional base URI for resolving relative IRIs while parsing.
 
     Raises:
-        NotImplementedError: Native conversion is not implemented yet (Phase 4).
+        ValueError: The ``.ttl`` file could not be parsed or the ``.hdt`` file could
+            not be written (e.g. malformed Turtle, or an unwritable output path).
     """
-    raise NotImplementedError(
-        "ttl2hdt is not implemented yet — see phase.md, Phase 4 (Rust HDT write path)."
-    )
+    _native.ttl2hdt(str(input_path), str(output_path), base_uri)
 
 
 def hdt2ttl(

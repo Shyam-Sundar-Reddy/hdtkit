@@ -65,7 +65,7 @@ mod tests {
         let ttl = std::fs::read_to_string(&out).unwrap();
         assert!(!ttl.is_empty());
         // Round-trip: re-parse what we wrote and confirm the triple count matches.
-        let reparsed = crate::ttl::parse_ttl(&out).unwrap();
+        let reparsed = crate::ttl::parse_ttl(&out, None).unwrap();
         let hdt = Hdt::read(BufReader::new(File::open(&fixture).unwrap())).unwrap();
         assert_eq!(reparsed.len(), hdt.triples_all().count());
         std::fs::remove_file(&out).ok();
