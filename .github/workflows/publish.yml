@@ -45,12 +45,13 @@ jobs:
         with:
           manylinux: auto
           # No bare `python3` on PATH in the manylinux image by default (it's
-          # only under /opt/pythonX.Y/bin/...) — `--find-interpreter` is
-          # maturin's own flag to search those known locations instead of
-          # just trying `python3`/`python`. (Not an action input: an earlier
-          # attempt passed `interpreter:` here, which this action version
-          # doesn't have — it warned and silently no-opped.)
-          args: --release --out dist --find-interpreter
+          # only under /opt/pythonX.Y/bin/...). `--interpreter` (a maturin CLI
+          # flag, NOT the action's own `interpreter:` input — that doesn't
+          # exist on this action version and silently no-ops) searches those
+          # known locations, scoped to the versions we actually support.
+          # `--find-interpreter` (tried first) searches unscoped and also
+          # picked up this image's cp314, which PyO3 0.23.5 doesn't support yet.
+          args: --release --out dist --interpreter python3.12 python3.13
 
       - name: Build sdist
         uses: PyO3/maturin-action@v1
