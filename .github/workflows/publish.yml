@@ -44,6 +44,9 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           manylinux: auto
+          # No bare `python3` on PATH in the manylinux image by default —
+          # `interpreter` tells the action which ones to find and build for.
+          interpreter: 3.12 3.13
           args: --release --out dist
 
       - name: Build sdist
