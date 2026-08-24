@@ -41,6 +41,9 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# Rust
+target/
+
 # Local notes / agent context
 AGENTS.md
 phase.md
